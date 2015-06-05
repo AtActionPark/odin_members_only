@@ -7,8 +7,35 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <header class="navbar navbar-fixed-top navbar-inverse">
+    <div class:"container">
+      <%= link_to "Members Only", root_path, id: "logo" %>
 
-<%= yield %>
+      <ul class="nav navbar-nav navbar-right"> 
+        
+        <% if signed_in?%>
+          <li><%= link_to "Post", post_path %></li>
+          <li><%= link_to "Logout (#{current_user.name})", signout_path , method: "delete"%></li>
+        <% else %>
+          <li><%= link_to "Login", signin_path %></li>
+        <% end %>
+      </ul>
+    </div>
+  </header>
 
+  <div class="container">
+    <% flash.each do |message_type, message| %>
+        <div class="alert alert-<%= message_type %>"><%= message %></div>
+      <% end %>
+    <%= yield %>
+    <%= debug(params) if Rails.env.development? %>
+  </div>
+
+  <footer class="footer">
+     <small>
+      Exercice for  <a href="http://www.theodinproject.com/ruby-on-rails/authentication">The Odin Project</a>.
+      See code on <a href="https://github.com/AtActionPark/odin_members_only">Github</a>
+    </small>
+  </footer>
 </body>
 </html>

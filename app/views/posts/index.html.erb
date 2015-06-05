@@ -1,0 +1,21 @@
+
+<div class="content">
+<ul >
+<% @posts.each do |p| %>
+<% if signed_in? %>
+    <div class="user">
+      <%= User.find(p.user_id).name if User.exists?(p.user_id) %>
+      said :
+    </div>
+    <% end %>
+
+  <li class="postslist">
+    <div class="post">
+      <%= p.content %>
+    </div>
+
+    
+  </li>
+<% end %>
+</ul>
+</div>
